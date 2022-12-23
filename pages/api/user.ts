@@ -30,7 +30,6 @@ export default async function handler(
 
 const GET = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-        await User.sync();
         const users = await User.findAll();
         return res.status(200).json(users);
     } catch (error) {
@@ -45,7 +44,6 @@ const GET = async (req: NextApiRequest, res: NextApiResponse) => {
 const POST = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const { user_name, password, email } = req.body;
-        await User.sync();
         const user = await User.create({
             user_name,
             password,
@@ -64,7 +62,6 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
 const DELETE = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const { user_name, email } = req.body;
-        await User.sync();
         const user = await User.destroy({
             where: {
                 user_name,
@@ -84,7 +81,6 @@ const DELETE = async (req: NextApiRequest, res: NextApiResponse) => {
 const PUT = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const { user_name, email, password } = req.body;
-        await User.sync();
         await User.update({
             user_name,
             email,
