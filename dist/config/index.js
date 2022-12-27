@@ -12,7 +12,6 @@ const config = {
     DATABASE_PASSWORD: process.env.DATABASE_PASSWORD,
     DATABASE_NAME: process.env.DATABASE_NAME,
     BACKEND_PORT: process.env.BACKEND_PORT,
-    BACKEND_HOST: process.env.BACKEND_HOST,
 };
 exports.default = config;
 //# sourceMappingURL=index.js.map

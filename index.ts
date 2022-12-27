@@ -9,7 +9,7 @@ const dev = process.env.NODE_ENV !== "production";
 async function bootstap() {
   try {
     await initDB();
-    console.log("Connect to the database successfully.");
+    console.info("Connect to the database successfully.");
   } catch (err) {
     console.error("Unable to connect to the database:", err);
   }
@@ -23,7 +23,7 @@ async function bootstap() {
       handle(req, res, parsedUrl);
     }).listen(port);
     
-    console.log(
+    console.info(
       `> Server listening at http://localhost:${port} as ${
         dev ? "development" : process.env.NODE_ENV
       }`

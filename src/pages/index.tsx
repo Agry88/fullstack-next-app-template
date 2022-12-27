@@ -4,18 +4,20 @@ import Head from 'next/head'
 import styled from 'styled-components'
 import { GetUser } from '../../types/user'
 import { useRef } from 'react'
-import { loadUsers } from '../../lib/load-users'
+import { loadUsers } from '../../lib/fetcher/load-users'
 
 export const getStaticProps: GetStaticProps<{ data: GetUser[] | null }> = async () => {
   const data = await loadUsers()
   return {
     props: { data },
+    revalidate: 10
   };
 }
 
 export default function Home(props: InferGetStaticPropsType<typeof getStaticProps>) {
 
   const data = props.data ?? [];
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
   const userNameRef = useRef<HTMLInputElement>(null)
   const emailRef = useRef<HTMLInputElement>(null)
@@ -27,7 +29,8 @@ export default function Home(props: InferGetStaticPropsType<typeof getStaticProp
     const email = emailRef.current?.value
     const password = passwordRef.current?.value
 
-    const res = await axios.post("http://localhost:3000/api/user", {
+    
+    const res = await axios.post(`${backendUrl}/api/user`, {
       user_name,
       email,
       password
@@ -44,7 +47,7 @@ export default function Home(props: InferGetStaticPropsType<typeof getStaticProp
     const user_name = userNameRef.current?.value
     const email = emailRef.current?.value
 
-    const res = await axios.delete("http://localhost:3000/api/user", {
+    const res = await axios.delete(`${backendUrl}/api/user`, {
       data: {
         user_name,
         email,
@@ -63,7 +66,7 @@ export default function Home(props: InferGetStaticPropsType<typeof getStaticProp
     const email = emailRef.current?.value
     const password = passwordRef.current?.value
 
-    const res = await axios.put("http://localhost:3000/api/user", {
+    const res = await axios.put(`${backendUrl}/api/user`, {
       user_name,
       email,
       password
