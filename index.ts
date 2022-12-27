@@ -1,7 +1,7 @@
 import { createServer } from "http";
 import { parse } from "url";
 import next from "next";
-import { initDB } from "./server/models";
+import { initDB } from "./server";
 
 const port = parseInt(process.env.HOSTPORT || "3000", 10);
 const dev = process.env.NODE_ENV !== "production";

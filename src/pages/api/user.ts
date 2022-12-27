@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import User from '../../server/models/definitions/User';
+import User from '../../../server/models/definitions/user';
 
 export default async function handler(
     req: NextApiRequest,
@@ -12,7 +12,7 @@ export default async function handler(
             break;
 
         case "GET":
-            await GET(req, res)
+            await GET(res)
             break;
 
         case "DELETE":
@@ -28,7 +28,7 @@ export default async function handler(
     }
 }
 
-const GET = async (req: NextApiRequest, res: NextApiResponse) => {
+const GET = async (res: NextApiResponse) => {
     try {
         const users = await User.findAll();
         return res.status(200).json(users);
@@ -62,7 +62,7 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
 const DELETE = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const { user_name, email } = req.body;
-        const user = await User.destroy({
+        await User.destroy({
             where: {
                 user_name,
                 email
